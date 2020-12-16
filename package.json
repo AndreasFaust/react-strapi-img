@@ -33,6 +33,7 @@
     "eslint-plugin-jsx-a11y": "6.4.1",
     "eslint-plugin-react": "7.21.5",
     "eslint-plugin-react-hooks": "4.2.0",
+    "generate-changelog": "^1.8.0",
     "gh-pages": "^3.1.0",
     "next": "10.0.3",
     "react": "17.0.1",
@@ -65,9 +66,10 @@
     "dev": "next dev",
     "start": "yarn dev",
     "build": "rollup -c",
-    "release:major": "yarn build && release major && npm publish",
-    "release:minor": "yarn build && release minor && npm publish",
-    "release:patch": "yarn build && release minor && npm publish",
+    "release:major": "yarn build && git add . && changelog -M && git add CHANGELOG.md && git commit -m 'updated CHANGELOG.md' && npm version major && git push origin && git push origin --tags && npm publish",
+    "release:minor": "yarn build && git add . && changelog -m && git add CHANGELOG.md && git commit -m 'updated CHANGELOG.md' && npm version minor && git push origin && git push origin --tags && npm publish",
+    "release:patch": "yarn build && git add . && changelog -p && git add CHANGELOG.md && git commit -m 'updated CHANGELOG.md' && npm version patch && git push origin && git push origin --tags && npm publish",
+    "release:dev": "yarn build && git add . && git commit -m 'Do Beta-Release' && git push origin && git push origin --tags && npm version 6.0.0-next.0 && npm publish --tag next",
     "deploy": "yarn next build && yarn next export && touch out/.nojekyll && gh-pages -t -d out"
   }
 }

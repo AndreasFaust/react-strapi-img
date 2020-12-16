@@ -6,8 +6,7 @@ export const set = (src: string): void => {
     data[src] = new Date();
     sessionStorage.setItem(key, JSON.stringify(data));
   } catch (error) {
-    /* istanbul ignore next */
-    console.error(`💡 react-cool-img: ${error}`);
+    console.error(`react-strapi-img: ${error}`);
   }
 };
 
@@ -16,9 +15,7 @@ export const get = (src: string): boolean => {
     const data = JSON.parse(sessionStorage.getItem(key) || "{}");
     return !!data[src];
   } catch (error) {
-    /* istanbul ignore next */
-    console.error(`💡 react-cool-img: ${error}`);
-    /* istanbul ignore next */
+    console.error(`react-strapi-img: ${error}`);
     return false;
   }
 };

@@ -19,7 +19,7 @@ export interface Props {
   originalWidth?: number;
   originalHeight?: number;
   proportionalHeight?: number;
-  alt?: string;
+  alternativeText?: string;
   className?: string;
   style?: object;
   prefix?: string;

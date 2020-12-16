@@ -12,6 +12,6 @@
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true
   },
-  "include": ["next-strapi-img/**/*"],
+  "include": ["src/**/*"],
   "exclude": ["node_modules", "dist"]
 }

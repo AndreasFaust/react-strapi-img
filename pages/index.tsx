@@ -1,6 +1,6 @@
 import React from "react";
 import { NextPage } from "next";
-import Image from "../next-strapi-img";
+import Image from "../dist";
 import getImage from "../utils/getImage";
 import Link from "next/link";
 

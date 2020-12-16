@@ -21,7 +21,7 @@ function getFormats(url: string, base64: string) {
 export default function getImage(url: string, base64: string) {
   return {
     url,
-    altText: `This is ${url}`,
+    alternativeText: `This is ${url}`,
     formats: getFormats(url, base64),
   };
 }

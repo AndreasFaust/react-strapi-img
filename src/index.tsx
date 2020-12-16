@@ -15,7 +15,7 @@ const NextStrapiImage: React.FC<Props> = ({
   originalHeight,
   proportionalHeight,
   rootMargin = "50px",
-  alt = "Alt-Text",
+  alternativeText = "Alternative-Text",
   className = "",
   style = null,
   prefix = "",
@@ -63,7 +63,7 @@ const NextStrapiImage: React.FC<Props> = ({
     >
       {!cached && (
         <Placeholder
-          alt={alt}
+          alternativeText={alternativeText}
           base64={formats.base64[0].url}
           objectFit={objectFit}
           objectPosition={objectPosition}
@@ -78,7 +78,7 @@ const NextStrapiImage: React.FC<Props> = ({
           objectFit={objectFit}
           objectPosition={objectPosition}
           prefix={prefix}
-          alt={alt}
+          alternativeText={alternativeText}
         />
       )}
     </Wrapper>

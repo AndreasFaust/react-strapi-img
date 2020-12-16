@@ -7,7 +7,7 @@ import external from "rollup-plugin-peer-deps-external";
 import pkg from "./package.json";
 
 export default {
-  input: "next-strapi-img/index.tsx",
+  input: "src/index.tsx",
   output: [
     {
       file: pkg.main,
@@ -36,16 +36,8 @@ export default {
     commonjs({
       include: ["node_modules/**"],
       exclude: ["**/*.stories.js"],
-      // namedExports: {
-      //   "node_modules/react/react.js": [
-      //     "Children",
-      //     "Component",
-      //     "PropTypes",
-      //     "createElement",
-      //   ],
-      //   "node_modules/react-dom/index.js": ["render"],
-      // },
     }),
     css({ output: "./dist/main.css" }),
   ],
+  external: ["styled-components"],
 };

@@ -6,7 +6,7 @@ import Wrapper from "./Wrapper";
 import { Props } from "./types";
 import * as storage from "./storage";
 
-const NextStrapiImage: React.FC<Props> = ({
+const ReactStrapiImg: React.FC<Props> = ({
   url,
   formats,
   objectFit = "cover",
@@ -85,4 +85,4 @@ const NextStrapiImage: React.FC<Props> = ({
   );
 };
 
-export default NextStrapiImage;
+export default ReactStrapiImg;

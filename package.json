@@ -1,0 +1,69 @@
+{
+  "name": "next-strapi-img",
+  "version": "0.0.0",
+  "description": "Load and display images in React from Strapi once and for all.",
+  "author": "AndreasFaust",
+  "license": "MIT",
+  "repository": "AndreasFaust/next-strapi-img",
+  "homepage": "https://andreasfaust.github.io/next-strapi-img/",
+  "main": "dist/index.js",
+  "module": "dist/index.es.js",
+  "jsnext:main": "dist/index.es.js",
+  "types": "./dist/index.d.ts",
+  "engines": {
+    "node": ">=8",
+    "npm": ">=5"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^17.0.0",
+    "@rollup/plugin-node-resolve": "^11.0.0",
+    "@rollup/plugin-url": "^6.0.0",
+    "@types/node": "^14.14.12",
+    "@types/react": "^17.0.0",
+    "@typescript-eslint/eslint-plugin": "4.9.1",
+    "@typescript-eslint/parser": "4.9.1",
+    "babel-eslint": "^10.1.0",
+    "eslint": "7.15.0",
+    "eslint-config-react-app": "^6.0.0",
+    "eslint-plugin-flowtype": "5.2.0",
+    "eslint-plugin-import": "2.22.1",
+    "eslint-plugin-jsx-a11y": "6.4.1",
+    "eslint-plugin-react": "7.21.5",
+    "eslint-plugin-react-hooks": "4.2.0",
+    "gh-pages": "^3.1.0",
+    "next": "10.0.3",
+    "react": "17.0.1",
+    "react-cool-inview": "^1.2.0",
+    "react-dom": "^17.0.1",
+    "rollup": "^2.34.2",
+    "rollup-plugin-css-only": "^3.0.0",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "rollup-plugin-typescript2": "^0.29.0",
+    "typescript": "^4.1.3"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0",
+    "react-cool-inview": "^1.2.0",
+    "react-dom": "^16.8.0"
+  },
+  "keywords": [
+    "React",
+    "NextJS",
+    "Next JS",
+    "Strapi",
+    "Image",
+    "Loading",
+    "Lazyloading",
+    "Blur"
+  ],
+  "scripts": {
+    "dev": "next dev",
+    "start": "yarn dev",
+    "build": "rollup -c",
+    "release:major": "yarn build && release major && npm publish",
+    "release:minor": "yarn build && release minor && npm publish",
+    "release:patch": "yarn build && release minor && npm publish",
+    "deploy": "yarn next build && yarn next export && touch out/.nojekyll && gh-pages -t -d out"
+  }
+}

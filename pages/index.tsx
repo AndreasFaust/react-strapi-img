@@ -1,6 +1,6 @@
 import React from "react";
 import { NextPage } from "next";
-import Image from "../dist";
+import Image from "../src";
 import getImage from "../utils/getImage";
 import Link from "next/link";
 
@@ -29,12 +29,20 @@ const Startpage: NextPage = () => {
         <a>Link</a>
       </Link>
       <div className="wrapper">
-        <div>{image1 && <Image {...image1} cache={false} />}</div>
+        <div>
+          {image1 && (
+            <Image
+              {...image1}
+              cache={false}
+              prefix={process.env.productionPath}
+            />
+          )}
+        </div>
         <div style={{ marginTop: "100vh" }}>
-          {image2 && <Image {...image2} />}
+          {image2 && <Image {...image2} prefix={process.env.productionPath} />}
         </div>
         <div style={{ marginTop: "150vh" }}>
-          {image3 && <Image {...image3} />}
+          {image3 && <Image {...image3} prefix={process.env.productionPath} />}
         </div>
       </div>
     </>

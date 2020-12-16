@@ -1,5 +1,5 @@
 const isProduction = process.env.NODE_ENV === "production";
-const productionPath = "/react-raster";
+const productionPath = "/react-strapi-img";
 
 module.exports = {
   basePath: isProduction ? productionPath : "",

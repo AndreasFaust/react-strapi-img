@@ -1,7 +1,7 @@
 {
   "name": "react-strapi-img",
   "version": "0.0.0",
-  "description": "Load and display images in React from Strapi once and for all.",
+  "description": "react-strapi-img is a wrapper for images, that handles responsive sizes, lazyloading and loading-animation. It is built to consume the image-data from Strapi.",
   "author": "AndreasFaust",
   "license": "MIT",
   "repository": "AndreasFaust/react-strapi-img",

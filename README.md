@@ -1,13 +1,29 @@
-**next-strapi-img** is a wrapper for images, that handles responsive sizes, lazyloading, loading-animation and image-sizing. For responsive sizes it is built to consume the image `formats` from Strapi.
+**react-strapi-img** is a wrapper for images, that handles responsive sizes, lazyloading and loading-animation. It is built to consume the image-data from Strapi.
 
 ### What it does
 
-- Loading images
--
+- Wrap image in proportional container, to preserve and determine height.
+- Lazyload image.
+- Transform Strapi image-`formats`-object into `srcset`.
+- Add Blured, animated base64-placeholder.
+- Cache urls of loaded images in `Session Storage` to omit placeholder-animation.
+- Use `WebP`-format if supported.
 
-### Dependencies
+### PeerDependencies
 
-- `react-cool-inView`
+- react: ^16.8.0,
+- react-cool-inview: ^1.2.0,
+- react-dom: ^16.8.0,
+- styled-components: ^5.2.1
+
+---
+
+## Setup image-resizing in `Strapi`
+
+To gain the efficency of `srcset`, copy the folder [services](services) to the Strapi-folder `/extensions/upload`. The scripts will resize every uploaded image to sizes from `500 to 3000 pixels width` and `base64`.
+
+This method is gratefully adapted from here:
+https://sarpisik.com/blog/how-to-generate-different-image-formats-with-strapi-plugin-upload-part-ii
 
 ---
 
@@ -28,3 +44,25 @@
 | **style**              | string   |             | Custom React style-object.                                                                             |
 | **prefix**             | string   |             | Prefix all src and srcset.                                                                             |
 | **cache**              | boolean  | true        | Saves loaded urls in SessionStorage, to prevent placeholder and animation.                             |
+
+---
+
+## Contributing
+
+Every contribution is very much appreciated.
+
+**If you like `react-raster`, don't hesitate to star it on [GitHub](https://github.com/AndreasFaust/react-raster).**
+
+---
+
+## License
+
+Licensed under the MIT License, Copyright © 2020-present Andreas Faust.
+
+See [LICENSE](LICENSE) for more information.
+
+---
+
+## Thanks
+
+Special thanks to all libraries this one is depending on.

@@ -16,7 +16,7 @@ const ReactStrapiImg: React.FC<Types.TImageProps> = ({
   originalHeight,
   proportionalHeight,
   rootMargin = "50px",
-  threshold = 0.1,
+  threshold = 0,
   alternativeText = "Alternative-Text",
   className = "",
   style = null,

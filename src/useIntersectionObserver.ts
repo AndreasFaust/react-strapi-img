@@ -9,7 +9,7 @@ interface Args<T> extends IntersectionObserverInit {
 type ReturnType = [boolean, IntersectionObserverEntry | undefined];
 function useIntersectionObserver<T extends HTMLElement = HTMLDivElement>({
   elementRef,
-  threshold = 0.1,
+  threshold = 0,
   root = null,
   rootMargin = "0%",
   freezeOnceVisible = false,

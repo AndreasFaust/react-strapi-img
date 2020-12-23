@@ -25,18 +25,13 @@ const ReactStrapiImg: React.FC<Types.TImageProps> = ({
 }) => {
   const ref = React.useRef<HTMLDivElement | null>(null);
 
-  const [isVisible /*, entry */] = useIntersectionObserver({
+  const [isVisible] = useIntersectionObserver({
     elementRef: ref,
     freezeOnceVisible: true,
     rootMargin,
     threshold,
   });
 
-  // const { inView } = useInView({
-  //   unobserveOnEnter: true,
-  //   rootMargin,
-  //   ref,
-  // });
   const [imageLoaded, setImageLoaded] = React.useState(false);
   function onLoad() {
     if (cache) {

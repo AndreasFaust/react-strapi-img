@@ -11,7 +11,7 @@ export type TObjectFit =
   | "scale-down"
   | undefined;
 
-export interface Props {
+export interface TImageProps {
   url: string;
   formats?: any;
   objectFit?: TObjectFit;

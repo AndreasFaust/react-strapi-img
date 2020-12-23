@@ -3,10 +3,10 @@ import useInView from "react-cool-inview";
 import Image from "./Image";
 import Placeholder from "./Placeholder";
 import Wrapper from "./Wrapper";
-import { Props } from "./types";
 import * as storage from "./storage";
+import * as Types from "./types";
 
-const ReactStrapiImg: React.FC<Props> = ({
+const ReactStrapiImg: React.FC<Types.TImageProps> = ({
   url,
   formats,
   objectFit = "cover",
@@ -86,3 +86,4 @@ const ReactStrapiImg: React.FC<Props> = ({
 };
 
 export default ReactStrapiImg;
+export { Types };

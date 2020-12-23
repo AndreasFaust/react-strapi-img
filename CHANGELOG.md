@@ -1,3 +1,9 @@
+#### 0.0.5 (2020-12-23)
+
+##### Bug Fixes
+
+*  fix threshold and add it to readme (1792e1dd)
+
 #### 0.0.4 (2020-12-23)
 
 ##### Bug Fixes

@@ -12,9 +12,20 @@
 ### PeerDependencies
 
 - react: ^16.8.0,
-- react-cool-inview: ^1.2.0,
 - react-dom: ^16.8.0,
 - styled-components: ^5.2.1
+
+---
+
+## Install
+
+```zsh
+yarn add react react-dom styled-components react-strapi-img
+```
+
+```zsh
+npm install -S react react-dom styled-components react-strapi-img
+```
 
 ---
 

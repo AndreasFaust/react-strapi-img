@@ -33,8 +33,8 @@ const StyledPlaceholder = styled.img<StyledProps>`
   opacity: ${(props) => (props.imageLoaded ? 0 : 1)};
   filter: blur(10px);
   transform: scale(1.1);
-  transformorigin: center;
-  zindex: 100;
+  transform-origin: center;
+  z-index: 100;
   pointerevents: none;
 `;
 

@@ -1,5 +1,6 @@
 import React from "react";
-import useInView from "react-cool-inview";
+import useIntersectionObserver from "./useIntersectionObserver";
+
 import Image from "./Image";
 import Placeholder from "./Placeholder";
 import Wrapper from "./Wrapper";
@@ -15,18 +16,27 @@ const ReactStrapiImg: React.FC<Types.TImageProps> = ({
   originalHeight,
   proportionalHeight,
   rootMargin = "50px",
+  threshold = 0.1,
   alternativeText = "Alternative-Text",
   className = "",
   style = null,
   prefix = "",
   cache = true,
 }) => {
-  const ref = React.useRef(null);
-  const { inView } = useInView({
-    unobserveOnEnter: true,
+  const ref = React.useRef<HTMLDivElement | null>(null);
+
+  const [isVisible /*, entry */] = useIntersectionObserver({
+    elementRef: ref,
+    freezeOnceVisible: true,
     rootMargin,
-    ref,
+    threshold,
   });
+
+  // const { inView } = useInView({
+  //   unobserveOnEnter: true,
+  //   rootMargin,
+  //   ref,
+  // });
   const [imageLoaded, setImageLoaded] = React.useState(false);
   function onLoad() {
     if (cache) {
@@ -47,10 +57,10 @@ const ReactStrapiImg: React.FC<Types.TImageProps> = ({
   }, []);
 
   React.useEffect(() => {
-    if (inView) {
+    if (isVisible) {
       setShow(true);
     }
-  }, [inView]);
+  }, [isVisible]);
 
   return (
     <Wrapper

@@ -24,5 +24,6 @@ export interface TImageProps {
   style?: object;
   prefix?: string;
   rootMargin?: string;
+  threshold?: number;
   cache?: boolean;
 }

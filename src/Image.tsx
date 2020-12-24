@@ -1,11 +1,11 @@
 import React from "react";
-import getSrcSet from "./getSrcSet";
 import { ObjectFit } from "./types";
 import styled from "styled-components";
 
 interface Props {
   url: string;
-  formats?: any;
+  srcSet?: string;
+  srcSetWebp?: string;
   objectFit?: ObjectFit;
   objectPosition?: string;
   alternativeText?: string;
@@ -38,7 +38,8 @@ const StyledImage = styled.img<StyledProps>`
 
 const Image: React.FC<Props> = ({
   url,
-  formats,
+  srcSet,
+  srcSetWebp,
   objectFit,
   objectPosition,
   alternativeText,
@@ -48,11 +49,8 @@ const Image: React.FC<Props> = ({
 }) => {
   return (
     <picture>
-      <source
-        srcSet={getSrcSet({ formats, prefix, webp: true })}
-        type="image/webp"
-      />
-      <source srcSet={getSrcSet({ formats, prefix })} type="image/jpeg" />
+      <source srcSet={srcSetWebp} type="image/webp" />
+      <source srcSet={srcSet} type="image/jpeg" />
       <StyledImage
         src={prefix + url}
         alternativeText={alternativeText}
@@ -65,4 +63,4 @@ const Image: React.FC<Props> = ({
   );
 };
 
-export default Image;
+export default React.memo(Image);

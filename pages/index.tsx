@@ -23,6 +23,7 @@ const Startpage: NextPage = () => {
       "data:image/jpeg;base64,/9j/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAUAA0DASIAAhEBAxEB/8QAGQAAAgMBAAAAAAAAAAAAAAAAAAUCAwYI/8QAIBAAAgMAAQQDAAAAAAAAAAAAAQIAAwQRBRMy0VFSYf/EABUBAQEAAAAAAAAAAAAAAAAAAAQF/8QAGxEAAgMAAwAAAAAAAAAAAAAAAAECAxEhMaH/2gAMAwEAAhEDEQA/AObUyOVHCmU2Z2B4Im0yasa0HudP0lh9XT3Fmy2l7SUxXAfrp7iXXHOydG+zeV6hILn48jImxvmEIfRuI//Z"
     )
   );
+
   return (
     <>
       <Link href="/test">
@@ -30,10 +31,20 @@ const Startpage: NextPage = () => {
       </Link>
       <div className="wrapper">
         <div>
+          <h1>react-strapi-img</h1>
+          <p>Scroll down to see some examples.</p>
+        </div>
+        <div style={{ marginTop: "25vh" }}>
+          <p>{`This and the following 2 images have "proportionalHeight={100}", so their height is equal to their width.`}</p>
+          {image2 && <Image {...image2} prefix={process.env.productionPath} />}
+        </div>
+        <div style={{ marginTop: "150vh" }}>
+          {image3 && <Image {...image3} prefix={process.env.productionPath} />}
+        </div>
+        <div>
           {image1 && (
             <Image
               {...image1}
-              cache={false}
               // style={`border: 2px solid red;`}
               // styleImg={`border: 2px solid blue;`}
               // stylePlaceholder={`transition: 10s;`}
@@ -41,11 +52,21 @@ const Startpage: NextPage = () => {
             />
           )}
         </div>
-        <div style={{ marginTop: "100vh" }}>
-          {image2 && <Image {...image2} prefix={process.env.productionPath} />}
-        </div>
-        <div style={{ marginTop: "150vh" }}>
-          {image3 && <Image {...image3} prefix={process.env.productionPath} />}
+        <div style={{ marginTop: "50vh" }}>
+          <p>
+            This image has just a plain <b>url</b>, so it does neither show a
+            placeholder nor use <b>webp</b> oder <b>srcset</b>. It is provided{" "}
+            <b>width</b> and <b>height</b>, so it preserves its original
+            proportions.
+          </p>
+          {image3 && (
+            <Image
+              url={"img_3_6bcea3d827.jpg"}
+              width={3712}
+              height={5568}
+              prefix={process.env.productionPath}
+            />
+          )}
         </div>
       </div>
     </>

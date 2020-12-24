@@ -68,4 +68,4 @@ const ImageWrapper: React.FC<Props> = ({
   );
 };
 
-export default ImageWrapper;
+export default React.memo(ImageWrapper);

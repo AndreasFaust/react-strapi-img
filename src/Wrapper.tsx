@@ -2,8 +2,8 @@ import React from "react";
 import styled from "styled-components";
 
 interface Props {
-  originalWidth?: number;
-  originalHeight?: number;
+  width?: number;
+  height?: number;
   proportionalHeight?: number;
   className?: string;
   style?: string;
@@ -11,7 +11,7 @@ interface Props {
 }
 
 interface StyledProps {
-  height: number;
+  relativeHeight: number;
   className?: string;
   customStyle?: string;
   children: React.ReactNode;
@@ -25,7 +25,7 @@ const StyledImageWrapper = styled.div<StyledProps>`
     content: "";
     height: 0;
     display: block;
-    padding-top: ${(props) => props.height}%;
+    padding-top: ${(props) => props.relativeHeight}%;
   }
 
   ${(props) => props.customStyle}
@@ -34,8 +34,8 @@ const StyledImageWrapper = styled.div<StyledProps>`
 const ImageWrapper = React.forwardRef<HTMLDivElement, Props>(
   (
     {
-      originalWidth,
-      originalHeight,
+      width,
+      height,
       proportionalHeight,
       className = "",
       style = null,
@@ -43,20 +43,20 @@ const ImageWrapper = React.forwardRef<HTMLDivElement, Props>(
     },
     ref
   ) => {
-    const height = React.useMemo(() => {
+    const relativeHeight = React.useMemo(() => {
       if (proportionalHeight) return proportionalHeight;
-      if (originalHeight && originalWidth) {
-        return (originalHeight / originalWidth) * 100;
+      if (height && width) {
+        return (height / width) * 100;
       }
       return 100;
-    }, [originalWidth, originalHeight, proportionalHeight]);
+    }, [width, height, proportionalHeight]);
 
     return (
       <StyledImageWrapper
         ref={ref}
         className={`imageWrapper ${className}`}
         customStyle={style}
-        height={height}
+        relativeHeight={relativeHeight}
       >
         {children}
       </StyledImageWrapper>

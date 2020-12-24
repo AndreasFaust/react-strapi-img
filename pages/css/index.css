@@ -4,3 +4,12 @@
   column-gap: 2vw;
   padding: 4vw;
 }
+
+h1 {
+  margin-bottom: 1em;
+}
+
+p {
+  margin-bottom: 1em;
+  line-height: 1.4;
+}

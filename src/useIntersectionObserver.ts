@@ -4,6 +4,7 @@ import { useRef, useEffect, useState, RefObject } from "react";
 interface Args<T> extends IntersectionObserverInit {
   elementRef: RefObject<T>;
   freezeOnceVisible?: boolean;
+  disable?: boolean;
 }
 
 type ReturnType = [boolean, IntersectionObserverEntry | undefined];
@@ -13,6 +14,7 @@ function useIntersectionObserver<T extends HTMLElement = HTMLDivElement>({
   root = null,
   rootMargin = "0%",
   freezeOnceVisible = false,
+  disable = false,
 }: Args<T>): ReturnType {
   const observer = useRef<IntersectionObserver | null>(null);
   const [entry, setEntry] = useState<IntersectionObserverEntry>();
@@ -25,7 +27,7 @@ function useIntersectionObserver<T extends HTMLElement = HTMLDivElement>({
   };
   useEffect(() => {
     const node = elementRef?.current; // DOM Ref
-    if (!hasIOSupport || noUpdate || !node) {
+    if (!hasIOSupport || noUpdate || !node || disable) {
       return;
     }
     // Delete the old observer before creating a new one

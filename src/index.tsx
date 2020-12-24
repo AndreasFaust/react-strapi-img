@@ -1,10 +1,10 @@
 import React from "react";
 import useIntersectionObserver from "./useIntersectionObserver";
+import getSrcSet from "./getSrcSet";
 
 import Image from "./Image";
 import Placeholder from "./Placeholder";
 import Wrapper from "./Wrapper";
-import * as storage from "./storage";
 import * as Types from "./types";
 
 const ReactStrapiImg: React.FC<Types.ImageProps> = ({
@@ -12,8 +12,8 @@ const ReactStrapiImg: React.FC<Types.ImageProps> = ({
   formats,
   objectFit = "cover",
   objectPosition = "center",
-  originalWidth,
-  originalHeight,
+  width,
+  height,
   proportionalHeight,
   rootMargin = "50px",
   threshold = 0,
@@ -23,10 +23,14 @@ const ReactStrapiImg: React.FC<Types.ImageProps> = ({
   stylePlaceholder = null,
   styleImg = null,
   prefix = "",
-  cache = true,
 }) => {
-  const ref = React.useRef<HTMLDivElement | null>(null);
+  const srcSetWebp = React.useMemo(
+    () => getSrcSet({ formats, prefix, webp: true }),
+    []
+  );
+  const srcSet = React.useMemo(() => getSrcSet({ formats, prefix }), []);
 
+  const ref = React.useRef<HTMLDivElement | null>(null);
   const [isVisible] = useIntersectionObserver({
     elementRef: ref,
     freezeOnceVisible: true,
@@ -35,23 +39,11 @@ const ReactStrapiImg: React.FC<Types.ImageProps> = ({
   });
 
   const [imageLoaded, setImageLoaded] = React.useState(false);
-  function onLoad() {
-    if (cache) {
-      storage.set(url);
-    }
+  const handleLoad = React.useCallback(() => {
     setImageLoaded(true);
-  }
+  }, []);
 
   const [show, setShow] = React.useState(false);
-  const [cached, setCached] = React.useState(false);
-
-  React.useEffect(() => {
-    // call storage in useEffect, to ensure it happens on client
-    if (cache && storage.get(url)) {
-      setCached(true);
-      setShow(true);
-    }
-  }, []);
 
   React.useEffect(() => {
     if (isVisible) {
@@ -64,11 +56,11 @@ const ReactStrapiImg: React.FC<Types.ImageProps> = ({
       ref={ref}
       className={className}
       style={style}
-      originalWidth={originalWidth}
-      originalHeight={originalHeight}
+      width={width}
+      height={height}
       proportionalHeight={proportionalHeight}
     >
-      {!cached && (
+      {formats && formats.base64[0] && (
         <Placeholder
           alternativeText={alternativeText}
           base64={formats.base64[0].url}
@@ -80,9 +72,10 @@ const ReactStrapiImg: React.FC<Types.ImageProps> = ({
       )}
       {show && (
         <Image
-          onLoad={onLoad}
+          onLoad={handleLoad}
           url={url}
-          formats={formats}
+          srcSetWebp={srcSetWebp}
+          srcSet={srcSet}
           objectFit={objectFit}
           objectPosition={objectPosition}
           prefix={prefix}

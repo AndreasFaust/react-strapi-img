@@ -16,8 +16,8 @@ export interface ImageProps {
   formats?: any;
   objectFit?: ObjectFit;
   objectPosition?: string;
-  originalWidth?: number;
-  originalHeight?: number;
+  width?: number;
+  height?: number;
   proportionalHeight?: number;
   alternativeText?: string;
   className?: string;
@@ -27,5 +27,4 @@ export interface ImageProps {
   prefix?: string;
   rootMargin?: string;
   threshold?: number;
-  cache?: boolean;
 }

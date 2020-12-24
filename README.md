@@ -1,4 +1,6 @@
-**react-strapi-img** is a wrapper for images, that handles responsive sizes, lazyloading and loading-animation. It is built to consume the image-data from Strapi.
+# `react-strapi-img`
+
+**react-strapi-img** is a wrapper for `img`, that handles webp-support, responsive sizes, lazyloading and loading-animation. It is optimized to consume image-data from `Strapi`, but can be useful in other contexts as well.
 
 ### What it does
 
@@ -72,9 +74,9 @@ Except `url` all props are **optional**.
 | **formats**            | object   |             | Strapi provides a formats-object for `srcset` and `base64`. Fetch it and insert it here.                                                                         |
 | **objectFit**          | string   | 'cover'     | CSS-property. Useful together with `proportionalHeight`                                                                                                          |
 | **objectPosition**     | string   | 'center'    | CSS-property. Useful together with `proportionalHeight`                                                                                                          |
-| **originalWidth**      | number   |             | Provided by Strapi. Pass it to preserve original image-proportions                                                                                               |
-| **originalHeight**     | number   |             | Provided by Strapi. Pass it to preserve original image-proportions                                                                                               |
-| **proportionalHeight** | number   |             | Provide for custom image-proportion. Crops image. Use along with `originalWidth` and `originalHeight`.                                                           |
+| **width**              | number   |             | Provided by Strapi. Pass it to preserve original image-proportions.                                                                                              |
+| **height**             | number   |             | Provided by Strapi. Pass it to preserve original image-proportions.                                                                                              |
+| **proportionalHeight** | number   |             | Provide for custom image-proportion. Crops image. Use along with `objectFit` and `objectPosition`.                                                               |
 | **rootMargin**         | string   | 50px        | Used by `Intersection Observer` to determine distance from viewport, when the image should be loaded                                                             |
 | **threshold**          | number   | 0           | Value between `0` and `1`. Used by `Intersection Observer` to indicate at what percentage of the target's visibility the observer's callback should be executed. |
 | **alternativeText**    | string   |             | alt-Attribute of the image. Provided by Strapi. Pass it for good SEO.                                                                                            |
@@ -91,7 +93,7 @@ Except `url` all props are **optional**.
 
 Every contribution is very much appreciated.
 
-**If you like `react-raster`, don't hesitate to star it on [GitHub](https://github.com/AndreasFaust/react-raster).**
+**If you like `react-strapi-img`, don't hesitate to star it on [GitHub](https://github.com/AndreasFaust/react-strapi-img).**
 
 ---
 
@@ -102,7 +104,3 @@ Licensed under the MIT License, Copyright © 2020-present Andreas Faust.
 See [LICENSE](LICENSE) for more information.
 
 ---
-
-## Thanks
-
-Special thanks to all libraries this one is depending on.

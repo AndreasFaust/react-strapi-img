@@ -12,9 +12,9 @@
 
 ### PeerDependencies
 
-- react: ^16.8.0,
-- react-dom: ^16.8.0,
-- styled-components: ^5.2.1
+- react: >= 16.8.0,
+- react-dom: >= 16.8.0,
+- styled-components: >= 5.2.0
 
 ---
 
@@ -30,7 +30,18 @@ npm install -S react react-dom styled-components react-strapi-img
 
 ---
 
+## Setup image-resizing in `Strapi`
+
+To gain the efficency of `srcset`, copy the folder [services](services) to the Strapi-folder `/extensions/upload`. The scripts will resize every uploaded image to sizes from `500 to 3000 pixels width` and `base64`.
+
+This method is gratefully adapted from here:
+https://sarpisik.com/blog/how-to-generate-different-image-formats-with-strapi-plugin-upload-part-ii
+
+---
+
 ## Usage
+
+After setting up `Strapi` and uploading some images, use them in your react-components:
 
 ```tsx
 import React from "react";
@@ -51,15 +62,6 @@ const MyApp: React.FC<Props> = ({ imageFromStrapi }) => {
 
 export default MyApp;
 ```
-
----
-
-## Setup image-resizing in `Strapi`
-
-To gain the efficency of `srcset`, copy the folder [services](services) to the Strapi-folder `/extensions/upload`. The scripts will resize every uploaded image to sizes from `500 to 3000 pixels width` and `base64`.
-
-This method is gratefully adapted from here:
-https://sarpisik.com/blog/how-to-generate-different-image-formats-with-strapi-plugin-upload-part-ii
 
 ---
 

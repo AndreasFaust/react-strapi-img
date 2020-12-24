@@ -1,4 +1,4 @@
-export type TObjectFit =
+export type ObjectFit =
   | "fill"
   | "cover"
   | "inherit"
@@ -11,17 +11,19 @@ export type TObjectFit =
   | "scale-down"
   | undefined;
 
-export interface TImageProps {
+export interface ImageProps {
   url: string;
   formats?: any;
-  objectFit?: TObjectFit;
+  objectFit?: ObjectFit;
   objectPosition?: string;
   originalWidth?: number;
   originalHeight?: number;
   proportionalHeight?: number;
   alternativeText?: string;
   className?: string;
-  style?: object;
+  style?: string;
+  stylePlaceholder?: string;
+  styleImg?: string;
   prefix?: string;
   rootMargin?: string;
   threshold?: number;

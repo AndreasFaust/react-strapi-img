@@ -40,6 +40,8 @@ https://sarpisik.com/blog/how-to-generate-different-image-formats-with-strapi-pl
 
 ## Props
 
+Except `url` all props are **optional**.
+
 | **Name**               | **Type** | **Default** | **Description**                                                                                                                                                  |
 | :--------------------- | :------- | :---------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **url**                | string   |             | Image-url. Fetch with Strapi.                                                                                                                                    |
@@ -53,7 +55,9 @@ https://sarpisik.com/blog/how-to-generate-different-image-formats-with-strapi-pl
 | **threshold**          | number   | 0           | Value between `0` and `1`. Used by `Intersection Observer` to indicate at what percentage of the target's visibility the observer's callback should be executed. |
 | **alternativeText**    | string   |             | alt-Attribute of the image. Provided by Strapi. Pass it for good SEO.                                                                                            |
 | **className**          | string   |             | Custom className.                                                                                                                                                |
-| **style**              | string   |             | Custom React style-object.                                                                                                                                       |
+| **style**              | string   |             | Custom styles for wrapper. Styled-Components style-string.                                                                                                       |
+| **stylePlaceholder**   | string   |             | Custom styles for placeholder. Styled-Components style-string.                                                                                                   |
+| **styleImg**           | string   |             | Custom styles for img-tag. Styled-Components style-string.                                                                                                       |
 | **prefix**             | string   |             | Prefix all src and srcset.                                                                                                                                       |
 | **cache**              | boolean  | true        | Saves loaded urls in SessionStorage, to prevent placeholder and animation.                                                                                       |
 

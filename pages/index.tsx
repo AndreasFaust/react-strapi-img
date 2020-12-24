@@ -34,6 +34,9 @@ const Startpage: NextPage = () => {
             <Image
               {...image1}
               cache={false}
+              // style={`border: 2px solid red;`}
+              // styleImg={`border: 2px solid blue;`}
+              // stylePlaceholder={`transition: 10s;`}
               prefix={process.env.productionPath}
             />
           )}

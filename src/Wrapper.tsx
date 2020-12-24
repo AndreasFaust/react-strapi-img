@@ -6,14 +6,14 @@ interface Props {
   originalHeight?: number;
   proportionalHeight?: number;
   className?: string;
-  style?: object;
+  style?: string;
   children: React.ReactNode;
 }
 
 interface StyledProps {
   height: number;
   className?: string;
-  style?: object;
+  customStyle?: string;
   children: React.ReactNode;
 }
 
@@ -27,6 +27,8 @@ const StyledImageWrapper = styled.div<StyledProps>`
     display: block;
     padding-top: ${(props) => props.height}%;
   }
+
+  ${(props) => props.customStyle}
 `;
 
 const ImageWrapper = React.forwardRef<HTMLDivElement, Props>(
@@ -53,7 +55,7 @@ const ImageWrapper = React.forwardRef<HTMLDivElement, Props>(
       <StyledImageWrapper
         ref={ref}
         className={`imageWrapper ${className}`}
-        style={style}
+        customStyle={style}
         height={height}
       >
         {children}

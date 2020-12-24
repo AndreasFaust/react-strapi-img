@@ -1,14 +1,15 @@
 import React from "react";
 import getSrcSet from "./getSrcSet";
-import { TObjectFit } from "./types";
+import { ObjectFit } from "./types";
 import styled from "styled-components";
 
 interface Props {
   url: string;
   formats?: any;
-  objectFit?: TObjectFit;
+  objectFit?: ObjectFit;
   objectPosition?: string;
   alternativeText?: string;
+  styleImg?: string;
   prefix?: string;
   onLoad: () => void;
 }
@@ -17,8 +18,9 @@ interface StyledProps {
   src: string;
   alternativeText: string;
   onLoad: () => void;
-  objectFit?: TObjectFit;
+  objectFit?: ObjectFit;
   objectPosition?: string;
+  styleImg?: string;
 }
 
 const StyledImage = styled.img<StyledProps>`
@@ -29,7 +31,9 @@ const StyledImage = styled.img<StyledProps>`
   bottom: 0;
   left: 0;
   right: 0;
+  width: 100%;
   height: 100%;
+  ${(props) => props.styleImg}
 `;
 
 const Image: React.FC<Props> = ({
@@ -38,6 +42,7 @@ const Image: React.FC<Props> = ({
   objectFit,
   objectPosition,
   alternativeText,
+  styleImg,
   prefix,
   onLoad,
 }) => {
@@ -54,6 +59,7 @@ const Image: React.FC<Props> = ({
         onLoad={onLoad}
         objectFit={objectFit}
         objectPosition={objectPosition}
+        styleImg={styleImg}
       />
     </picture>
   );

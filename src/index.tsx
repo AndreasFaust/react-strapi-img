@@ -7,7 +7,7 @@ import Wrapper from "./Wrapper";
 import * as storage from "./storage";
 import * as Types from "./types";
 
-const ReactStrapiImg: React.FC<Types.TImageProps> = ({
+const ReactStrapiImg: React.FC<Types.ImageProps> = ({
   url,
   formats,
   objectFit = "cover",
@@ -20,6 +20,8 @@ const ReactStrapiImg: React.FC<Types.TImageProps> = ({
   alternativeText = "Alternative-Text",
   className = "",
   style = null,
+  stylePlaceholder = null,
+  styleImg = null,
   prefix = "",
   cache = true,
 }) => {
@@ -73,6 +75,7 @@ const ReactStrapiImg: React.FC<Types.TImageProps> = ({
           objectFit={objectFit}
           objectPosition={objectPosition}
           imageLoaded={imageLoaded}
+          stylePlaceholder={stylePlaceholder}
         />
       )}
       {show && (
@@ -84,6 +87,7 @@ const ReactStrapiImg: React.FC<Types.TImageProps> = ({
           objectPosition={objectPosition}
           prefix={prefix}
           alternativeText={alternativeText}
+          styleImg={styleImg}
         />
       )}
     </Wrapper>

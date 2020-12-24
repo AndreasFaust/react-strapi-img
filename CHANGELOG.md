@@ -1,3 +1,9 @@
+#### 0.0.6 (2020-12-24)
+
+##### Other Changes
+
+*  add usage-example (381e6501)
+
 #### 0.0.5 (2020-12-23)
 
 ##### Bug Fixes

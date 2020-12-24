@@ -8,7 +8,6 @@
 - Lazyload image.
 - Transform Strapi image-`formats`-object into `srcset`.
 - Add Blured, animated base64-placeholder.
-- Cache urls of loaded images in `Session Storage` to omit placeholder-animation.
 - Use `WebP`-format if supported.
 
 ### PeerDependencies
@@ -85,7 +84,6 @@ Except `url` all props are **optional**.
 | **stylePlaceholder**   | string   |             | Custom styles for placeholder. Styled-Components style-string.                                                                                                   |
 | **styleImg**           | string   |             | Custom styles for img-tag. Styled-Components style-string.                                                                                                       |
 | **prefix**             | string   |             | Prefix all src and srcset.                                                                                                                                       |
-| **cache**              | boolean  | true        | Saves loaded urls in SessionStorage, to prevent placeholder and animation.                                                                                       |
 
 ---
 

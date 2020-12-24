@@ -29,6 +29,30 @@ npm install -S react react-dom styled-components react-strapi-img
 
 ---
 
+## Usage
+
+```tsx
+import React from "react";
+import Image, { Types } from "react-strapi-img";
+
+interface Props {
+  imageFromStrapi: Types.ImageProps;
+}
+
+const MyApp: React.FC<Props> = ({ imageFromStrapi }) => {
+  return (
+    <Image
+      {...imageFromStrapi}
+      prefix={process.env.MEDIA_PREFIX} // optional example
+    />
+  );
+};
+
+export default MyApp;
+```
+
+---
+
 ## Setup image-resizing in `Strapi`
 
 To gain the efficency of `srcset`, copy the folder [services](services) to the Strapi-folder `/extensions/upload`. The scripts will resize every uploaded image to sizes from `500 to 3000 pixels width` and `base64`.

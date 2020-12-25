@@ -2,6 +2,8 @@
 
 **react-strapi-img** is a wrapper for `img`, that handles webp-support, responsive sizes, lazyloading and loading-animation. It is optimized to consume image-data from `Strapi`, but can be useful in other contexts as well.
 
+🦊 Take a look at the [example](https://andreasfaust.github.io/react-strapi-img/).
+
 ### What it does
 
 - Wrap image in proportional container, to preserve and determine height.
@@ -111,10 +113,34 @@ Except `url` all props are **optional**.
 | **threshold**          | number   | 0           | Value between `0` and `1`. Used by `Intersection Observer` to indicate at what percentage of the target's visibility the observer's callback should be executed. |
 | **alternativeText**    | string   |             | alt-Attribute of the image. Provided by Strapi. Pass it for good SEO.                                                                                            |
 | **className**          | string   |             | Custom className.                                                                                                                                                |
-| **style**              | string   |             | Custom styles for wrapper. Styled-Components style-string.                                                                                                       |
-| **stylePlaceholder**   | string   |             | Custom styles for placeholder. Styled-Components style-string.                                                                                                   |
-| **styleImg**           | string   |             | Custom styles for img-tag. Styled-Components style-string.                                                                                                       |
+| **style**              | string   |             | Custom styles for wrapper. `styled-components` template-literal.                                                                                                 |
+| **stylePlaceholder**   | string   |             | Custom styles for placeholder. `styled-components` template-literal                                                                                              |
+| **styleImg**           | string   |             | Custom styles for img-tag. `styled-components` template-literal                                                                                                  |
 | **prefix**             | string   |             | Prefix all src and srcset.                                                                                                                                       |
+
+---
+
+## TypeScript-Types
+
+All relevant [Types](/src/types.ts) are exported:
+
+1. ImageProps
+2. Formats
+3. ObjectFit
+
+```tsx
+import { Types } from "react-strapi-img";
+
+interface Props {
+  imageFromStrapi: Types.ImageProps;
+}
+
+const MyApp: React.FC<Props> = ({ imageFromStrapi }) => {
+  return <Image {...imageFromStrapi} />;
+};
+
+export default MyApp;
+```
 
 ---
 
@@ -123,7 +149,7 @@ Except `url` all props are **optional**.
 Initially:
 
 ```html
-<div class="Wrapper__StyledImageWrapper-sc-1o399dd-0 cqCfje imageWrapper ">
+<div class="Wrapper__StyledImageWrapper-sc-1o399dd-0 cqCfje imageWrapper">
   <img
     src="data:image/jpeg;base64,/9j/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAANABQDASIAAhEBAxEB/8QAGAAAAwEBAAAAAAAAAAAAAAAAAAUHAgb/xAAlEAACAQMCBgMBAAAAAAAAAAABAgMABBEFEgYHEyExQSIycVH/xAAVAQEBAAAAAAAAAAAAAAAAAAADBP/EABgRAAMBAQAAAAAAAAAAAAAAAAABEQID/9oADAMBAAIRAxEAPwCT8sZ4o9Q055XZFF1uJz5AFdhzB4mt7rW4hAz7OiBJj3lk7iopZaleWqp0LiRCjb0w31b+/tYuNRurmXfPNI7gEZLevOKmfJvVo2esUg24guVXU5Pl3IGf3GKKQyvvfc+ST7JoplmIN6rp/9k="
     alt='Placeholder for the image "testimg_1d61597ba3.jpg".'
@@ -138,8 +164,6 @@ Initially:
   </noscript>
 </div>
 ```
-
----
 
 After image was loaded:
 
@@ -207,7 +231,9 @@ After image was loaded:
 Every contribution is very much appreciated. In fact,
 your testing and feedback is the reason, I am going the extra mile of publishing
 my work open-source (and GitHub-Stars, of course!). So join me in making this
-software more reliable for everyone! **If `react-strapi-img` is helpful for you,
+software more reliable for everyone.
+
+**If `react-strapi-img` is helpful for you,
 don't hesitate to star it on
 [GitHub](https://github.com/AndreasFaust/react-strapi-img).**
 

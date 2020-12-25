@@ -95,23 +95,34 @@ const generateThumbnail = async (file) => {
       };
     }
   }
-
   return null;
 };
 
 const BREAKPOINTS = [
-  ["3000", 3000],
-  ["2750", 2750],
-  ["2500", 2500],
-  ["2250", 2250],
-  ["2000", 2000],
-  ["1750", 1750],
-  ["1500", 1500],
-  ["1250", 1250],
-  ["1000", 1000],
-  ["750", 750],
-  ["500", 500],
+  3000,
+  2800,
+  2600,
+  2400,
+  2200,
+  2000,
+  1800,
+  1600,
+  1400,
+  1200,
+  1000,
+  800,
+  600,
+  400,
 ];
+
+function getBreakpoints(originalWidth, originalBreakpoints) {
+  const breakpoints = originalBreakpoints.filter((breakpoint) => {
+    return breakpoint <= originalWidth;
+  });
+  return originalWidth < 3000 && breakpoints[0] < originalWidth
+    ? [originalWidth, ...breakpoints]
+    : breakpoints;
+}
 
 const generateResponsiveFormats = async (file) => {
   const {
@@ -132,38 +143,38 @@ const generateResponsiveFormats = async (file) => {
   if (format !== "webp") {
     toFormats.push("webp");
   }
+  const breakpoints = getBreakpoints(originalDimensions.width, BREAKPOINTS);
+
   return await Promise.all(
     toFormats.map((toFormat) => {
-      // For each format,
       return Promise.all(
-        BREAKPOINTS.map(([key, breakpoint]) => {
-          // Generate breakpoint sized image
-          return generateBreakpoint(key, {
+        breakpoints.map((breakpoint) =>
+          generateBreakpoint({
             file,
             toFormat,
             breakpoint,
             originalDimensions,
-          });
-        })
+          })
+        )
       );
     })
   );
 };
 
-const generateBreakpoint = async (
-  key,
-  { file, toFormat, breakpoint, originalDimensions }
-) => {
-  const newSize = breakpointSmallerThan(breakpoint, originalDimensions)
-    ? { width: breakpoint, height: breakpoint }
-    : originalDimensions;
-
+const generateBreakpoint = async ({
+  file,
+  toFormat,
+  breakpoint,
+  originalDimensions,
+}) => {
   const newBuff = await resizeTo(
     file.buffer,
     {
-      width: newSize.width,
-      height: newSize.height,
-      fit: "inside",
+      width: breakpoint,
+      height: Math.round(
+        (originalDimensions.height / originalDimensions.width) * breakpoint
+      ),
+      fit: "cover",
     },
     toFormat
   );
@@ -174,10 +185,10 @@ const generateBreakpoint = async (
     const format = reFormat(data.format);
     const ext = `.${format}`;
     return {
-      key,
+      key: `${breakpoint}`,
       file: {
-        name: `${key}_${reName(file.name, ext)}`,
-        hash: `${key}_${file.hash}`,
+        name: `${breakpoint}_${reName(file.name, ext)}`,
+        hash: `${breakpoint}_${file.hash}`,
         ext,
         mime: `image/${format}`,
         width,
@@ -188,10 +199,6 @@ const generateBreakpoint = async (
       },
     };
   }
-};
-
-const breakpointSmallerThan = (breakpoint, { width, height }) => {
-  return breakpoint < width || breakpoint < height;
 };
 
 const formatsToProccess = ["jpeg", "png", "webp", "tiff"];

@@ -9,6 +9,7 @@
 - Transform Strapi image-`formats`-object into `srcset`.
 - Add Blured, animated base64-placeholder.
 - Use `WebP`-format if supported.
+- Add `noscript`-image for SEO.
 
 ### PeerDependencies
 
@@ -32,10 +33,28 @@ npm install -S react react-dom styled-components react-strapi-img
 
 ## Setup image-resizing in `Strapi`
 
-To gain the efficency of `srcset`, copy the folder [services](services) to the Strapi-folder `/extensions/upload`. The scripts will resize every uploaded image to sizes from `500 to 3000 pixels width` and `base64`.
+To gain the efficency of `srcset`, copy the folder [services](services) to the Strapi-folder `/extensions/upload`. The scripts will resize every uploaded image:
+
+1. to `base64`
+2. to sizes from `400px` to the `original image width` in steps of `200px`
+   – maximum is `3000px`
+   — the original image-size will be added as largest breakpoint
 
 This method is gratefully adapted from here:
 https://sarpisik.com/blog/how-to-generate-different-image-formats-with-strapi-plugin-upload-part-ii
+
+In `react` fetch the image with `graphQL`:
+
+```graphql
+query {
+  image {
+    url
+    width
+    height
+    formats
+  }
+}
+```
 
 ---
 
@@ -52,10 +71,20 @@ interface Props {
 }
 
 const MyApp: React.FC<Props> = ({ imageFromStrapi }) => {
+  const { url, width, height, formats } = imageFromStrapi;
   return (
     <Image
-      {...imageFromStrapi}
-      prefix={process.env.MEDIA_PREFIX} // optional example
+      // you could also spread all props like this: {...imageFromStrapi},
+      // but for the purpose of demonstration I am adding them one by one
+      url={url} // required
+      width={width} // optional
+      height={height} // optional
+      formats={formats} // optional
+      prefix={
+        process.env.NODE_ENV === "production"
+          ? "https://api.myapp.net"
+          : "http://localhost:1337"
+      } // optional
     />
   );
 };
@@ -89,18 +118,104 @@ Except `url` all props are **optional**.
 
 ---
 
+## Rendered Output
+
+Initially:
+
+```html
+<div class="Wrapper__StyledImageWrapper-sc-1o399dd-0 cqCfje imageWrapper ">
+  <img
+    src="data:image/jpeg;base64,/9j/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAANABQDASIAAhEBAxEB/8QAGAAAAwEBAAAAAAAAAAAAAAAAAAUHAgb/xAAlEAACAQMCBgMBAAAAAAAAAAABAgMABBEFEgYHEyExQSIycVH/xAAVAQEBAAAAAAAAAAAAAAAAAAADBP/EABgRAAMBAQAAAAAAAAAAAAAAAAABEQID/9oADAMBAAIRAxEAPwCT8sZ4o9Q055XZFF1uJz5AFdhzB4mt7rW4hAz7OiBJj3lk7iopZaleWqp0LiRCjb0w31b+/tYuNRurmXfPNI7gEZLevOKmfJvVo2esUg24guVXU5Pl3IGf3GKKQyvvfc+ST7JoplmIN6rp/9k="
+    alt='Placeholder for the image "testimg_1d61597ba3.jpg".'
+    class="Placeholder__StyledPlaceholder-h5tses-0 grjLdz"
+  />
+  <noscript>
+    <img
+      src="testimg_1d61597ba3.jpg"
+      alt="This is testimg_1d61597ba3.jpg"
+      class="StyledImage-yw93u6-0 bvBGFq"
+    />
+  </noscript>
+</div>
+```
+
+---
+
+After image was loaded:
+
+```html
+<div class="Wrapper__StyledImageWrapper-sc-1o399dd-0 bJzCYV imageWrapper">
+  <picture>
+    <source
+      srcset="
+        /400_testimg_1d61597ba3.webp   400w,
+        /600_testimg_1d61597ba3.webp   600w,
+        /800_testimg_1d61597ba3.webp   800w,
+        /1000_testimg_1d61597ba3.webp 1000w,
+        /1200_testimg_1d61597ba3.webp 1200w,
+        /1400_testimg_1d61597ba3.webp 1400w,
+        /1600_testimg_1d61597ba3.webp 1600w,
+        /1800_testimg_1d61597ba3.webp 1800w,
+        /2000_testimg_1d61597ba3.webp 2000w,
+        /2200_testimg_1d61597ba3.webp 2200w,
+        /2400_testimg_1d61597ba3.webp 2400w,
+        /2600_testimg_1d61597ba3.webp 2600w,
+        /2800_testimg_1d61597ba3.webp 2800w,
+        /3000_testimg_1d61597ba3.webp 3000w
+      "
+      type="image/webp"
+    />
+    <source
+      srcset="
+        /400_testimg_1d61597ba3.jpg   400w,
+        /600_testimg_1d61597ba3.jpg   600w,
+        /800_testimg_1d61597ba3.jpg   800w,
+        /1000_testimg_1d61597ba3.jpg 1000w,
+        /1200_testimg_1d61597ba3.jpg 1200w,
+        /1400_testimg_1d61597ba3.jpg 1400w,
+        /1600_testimg_1d61597ba3.jpg 1600w,
+        /1800_testimg_1d61597ba3.jpg 1800w,
+        /2000_testimg_1d61597ba3.jpg 2000w,
+        /2200_testimg_1d61597ba3.jpg 2200w,
+        /2400_testimg_1d61597ba3.jpg 2400w,
+        /2600_testimg_1d61597ba3.jpg 2600w,
+        /2800_testimg_1d61597ba3.jpg 2800w,
+        /3000_testimg_1d61597ba3.jpg 3000w
+      "
+      type="image/jpeg"
+    />
+    <img
+      src="testimg_1d61597ba3.jpg"
+      alt="This is testimg_1d61597ba3.jpg"
+      class="StyledImage-yw93u6-0 bvBGFq"
+    />
+  </picture>
+  <noscript>
+    <img
+      src="testimg_1d61597ba3.jpg"
+      alt="This is testimg_1d61597ba3.jpg"
+      class="StyledImage-yw93u6-0 bvBGFq"
+    />
+  </noscript>
+</div>
+```
+
+---
+
 ## Contributing
 
-Every contribution is very much appreciated.
-
-**If you like `react-strapi-img`, don't hesitate to star it on [GitHub](https://github.com/AndreasFaust/react-strapi-img).**
+Every contribution is very much appreciated. In fact,
+your testing and feedback is the reason, I am going the extra mile of publishing
+my work open-source (and GitHub-Stars, of course!). So join me in making this
+software more reliable for everyone! **If `react-strapi-img` is helpful for you,
+don't hesitate to star it on
+[GitHub](https://github.com/AndreasFaust/react-strapi-img).**
 
 ---
 
 ## License
 
-Licensed under the MIT License, Copyright © 2020-present Andreas Faust.
-
-See [LICENSE](LICENSE) for more information.
+Licensed under the MIT License, Copyright © 2020-present Andreas Faust. See
+[LICENSE](LICENSE) for more information.
 
 ---

@@ -3,6 +3,7 @@ import useIntersectionObserver from "./useIntersectionObserver";
 import getSrcSet from "./getSrcSet";
 
 import Image from "./Image";
+import StyledImage from "./StyledImage";
 import Placeholder from "./Placeholder";
 import Wrapper from "./Wrapper";
 import * as Types from "./types";
@@ -62,7 +63,7 @@ const ReactStrapiImg: React.FC<Types.ImageProps> = ({
     >
       {formats && formats.base64[0] && (
         <Placeholder
-          alternativeText={alternativeText}
+          url={url}
           base64={formats.base64[0].url}
           objectFit={objectFit}
           objectPosition={objectPosition}
@@ -73,16 +74,24 @@ const ReactStrapiImg: React.FC<Types.ImageProps> = ({
       {show && (
         <Image
           onLoad={handleLoad}
-          url={url}
+          src={prefix + url}
           srcSetWebp={srcSetWebp}
           srcSet={srcSet}
           objectFit={objectFit}
           objectPosition={objectPosition}
-          prefix={prefix}
           alternativeText={alternativeText}
           styleImg={styleImg}
         />
       )}
+      <noscript>
+        <StyledImage
+          src={prefix + url}
+          alt={alternativeText}
+          objectFit={objectFit}
+          objectPosition={objectPosition}
+          styleImg={styleImg}
+        />
+      </noscript>
     </Wrapper>
   );
 };

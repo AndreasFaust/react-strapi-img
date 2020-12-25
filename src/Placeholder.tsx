@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 interface Props {
   base64: string;
-  alternativeText: string;
+  url: string;
   objectFit: ObjectFit;
   objectPosition: string;
   stylePlaceholder?: string;
@@ -13,7 +13,7 @@ interface Props {
 
 interface StyledProps {
   src: string;
-  alternativeText: string;
+  alt: string;
   objectFit: ObjectFit;
   objectPosition: string;
   stylePlaceholder?: string;
@@ -43,7 +43,7 @@ const StyledPlaceholder = styled.img<StyledProps>`
 
 const ImageWrapper: React.FC<Props> = ({
   base64,
-  alternativeText,
+  url,
   objectFit,
   objectPosition,
   imageLoaded,
@@ -57,7 +57,7 @@ const ImageWrapper: React.FC<Props> = ({
     render && (
       <StyledPlaceholder
         src={base64}
-        alternativeText={alternativeText}
+        alt={`Placeholder for the image "${url}".`}
         onTransitionEnd={onTransitionEnd}
         objectFit={objectFit}
         objectPosition={objectPosition}

@@ -1,7 +1,11 @@
 import React from "react";
 import { ObjectFit } from "./types";
 import StyledImage from "./StyledImage";
-import stringEndsWith from "./stringEndsWith";
+
+function getFileExtension(filename: string) {
+  const extension = filename.split(".").pop();
+  return extension === "jpg" ? "jpeg" : extension;
+}
 
 interface Props {
   src: string;
@@ -26,11 +30,10 @@ const Image: React.FC<Props> = ({
 }) => {
   return (
     <picture>
-      <source srcSet={srcSetWebp} type="image/webp" />
-      <source
-        srcSet={srcSet}
-        type={`image/${stringEndsWith(src, "jpg") ? "jpeg" : "png"}`}
-      />
+      {srcSetWebp && <source srcSet={srcSetWebp} type="image/webp" />}
+      {srcSet && (
+        <source srcSet={srcSet} type={`image/${getFileExtension(src)}`} />
+      )}
       <StyledImage
         src={src}
         alt={alternativeText}

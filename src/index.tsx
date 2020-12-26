@@ -1,6 +1,6 @@
 import React from "react";
 import useIntersectionObserver from "./useIntersectionObserver";
-import getSrcSet from "./getSrcSet";
+import getSrcSets from "./getSrcSets";
 
 import Image from "./Image";
 import StyledImage from "./StyledImage";
@@ -25,11 +25,7 @@ const ReactStrapiImg: React.FC<Types.ImageProps> = ({
   styleImg = null,
   prefix = "",
 }) => {
-  const srcSetWebp = React.useMemo(
-    () => getSrcSet({ formats, prefix, webp: true }),
-    []
-  );
-  const srcSet = React.useMemo(() => getSrcSet({ formats, prefix }), []);
+  const srcSet = React.useMemo(() => getSrcSets(formats, prefix), []);
 
   const ref = React.useRef<HTMLDivElement | null>(null);
   const [isVisible] = useIntersectionObserver({
@@ -61,10 +57,10 @@ const ReactStrapiImg: React.FC<Types.ImageProps> = ({
       height={height}
       proportionalHeight={proportionalHeight}
     >
-      {formats && formats.base64[0] && (
+      {formats && formats.base64 && (
         <Placeholder
           url={url}
-          base64={formats.base64[0].url}
+          base64={formats.base64.url}
           objectFit={objectFit}
           objectPosition={objectPosition}
           imageLoaded={imageLoaded}
@@ -75,8 +71,8 @@ const ReactStrapiImg: React.FC<Types.ImageProps> = ({
         <Image
           onLoad={handleLoad}
           src={prefix + url}
-          srcSetWebp={srcSetWebp}
-          srcSet={srcSet}
+          srcSet={srcSet.regular}
+          srcSetWebp={srcSet.webp}
           objectFit={objectFit}
           objectPosition={objectPosition}
           alternativeText={alternativeText}

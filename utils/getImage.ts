@@ -1,7 +1,11 @@
-import { Types } from "../dist";
+import { Types } from "../src";
 
-function getFormats(url: string, base64: string) {
-  const formats = {};
+function getFormats(url: string, base64: string): Types.Formats {
+  const formats: Types.Formats = {
+    base64: {
+      url: base64,
+    },
+  };
   for (let i = 400; i <= 3000; i += 200) {
     formats[i] = [
       {
@@ -12,11 +16,6 @@ function getFormats(url: string, base64: string) {
       },
     ];
   }
-  formats["base64"] = [
-    {
-      url: base64,
-    },
-  ];
   return formats;
 }
 

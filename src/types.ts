@@ -11,28 +11,21 @@ export type ObjectFit =
   | "scale-down"
   | undefined;
 
-interface Format {
+export interface Format {
+  url: string;
   name?: string;
   hash?: string;
   width?: number;
   height?: number;
   size?: number;
   path?: null;
-  url: string;
+  mime?: "image/jpg" | "image/png" | "image/webp";
+  ext?: ".jpg" | ".png" | ".webp";
 }
-interface FormatJPG extends Format {
-  ext?: ".jpg";
-  mime?: "image/jpg";
-}
-interface FormatWebP extends Format {
-  ext?: ".webp";
-  mime?: "image/webp";
-}
-
-type Breakpoint = number | "base64";
 
 export type Formats = {
-  [breakpoint in Breakpoint]: [FormatJPG, FormatWebP];
+  ["base64"]?: Format;
+  [breakpoint: number]: Format | Format[];
 };
 
 export interface ImageProps {

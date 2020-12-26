@@ -56,48 +56,6 @@ const generateBase64 = async (file) => {
   }
 };
 
-const THUMBNAIL_RESIZE_OPTIONS = {
-  width: 245,
-  height: 156,
-  fit: "inside",
-};
-
-const generateThumbnail = async (file) => {
-  if (!(await canBeProccessed(file.buffer))) {
-    return null;
-  }
-
-  const { width, height } = await getDimensions(file.buffer);
-
-  if (
-    width > THUMBNAIL_RESIZE_OPTIONS.width ||
-    height > THUMBNAIL_RESIZE_OPTIONS.height
-  ) {
-    const newBuff = await resizeTo(
-      file.buffer,
-      THUMBNAIL_RESIZE_OPTIONS,
-      getFormat(file.ext)
-    );
-
-    if (newBuff) {
-      const { width, height, size } = await getMetadatas(newBuff);
-
-      return {
-        name: `thumbnail_${file.name}`,
-        hash: `thumbnail_${file.hash}`,
-        ext: file.ext,
-        mime: file.mime,
-        width,
-        height,
-        size: bytesToKbytes(size),
-        buffer: newBuff,
-        path: file.path ? file.path : null,
-      };
-    }
-  }
-  return null;
-};
-
 const BREAKPOINTS = [
   3000,
   2800,
@@ -211,6 +169,5 @@ module.exports = {
   getDimensions,
   generateBase64,
   generateResponsiveFormats,
-  generateThumbnail,
   bytesToKbytes,
 };

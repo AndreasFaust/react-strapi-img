@@ -33,7 +33,7 @@ const Startpage: NextPage = () => {
         {image2 && <Image {...image2} prefix={process.env.productionPath} />}
       </div>
       <div style={{ marginTop: "25vh" }}>
-        <p>{`This image has "proportionalHeight={100}", so their height is equal to their width.`}</p>
+        <p>{`This image has "proportionalHeight={100}", so its height is equal to its width.`}</p>
         {image1 && (
           <Image
             proportionalHeight={100}

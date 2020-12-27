@@ -4,6 +4,8 @@
 
 🦊 Take a look at the [example](https://andreasfaust.github.io/react-strapi-img/).
 
+⚠️ This library is in **beta**-state, which means its API still can change a bit without warning. Everything is working great so far, but it still needs some testing. As soon as I tested it in production and gathered some feedback, I will release verson `1.0.0`. Feel free to join and improve!
+
 ### What it does
 
 - Wrap image in proportional container, to preserve and determine height.
@@ -19,6 +21,10 @@
 - react: >= 16.8.0,
 - react-dom: >= 16.8.0,
 - styled-components: >= 5.2.0
+
+### Why another image-loader?
+
+I could not find an existing solution, that connects resized images from `Strapi` with `NextJS` conveniently and meets all my requirements.
 
 ---
 
@@ -113,20 +119,20 @@ Except `url` all props are **optional**.
 | **proportionalHeight** | number   |             | Provide for custom image-proportion. Crops image. Use along with `objectFit` and `objectPosition`.                                                               |
 | **rootMargin**         | string   | 50px        | Used by `Intersection Observer` to determine distance from viewport, when the image should be loaded                                                             |
 | **threshold**          | number   | 0           | Value between `0` and `1`. Used by `Intersection Observer` to indicate at what percentage of the target's visibility the observer's callback should be executed. |
-| **alternativeText**    | string   |             | alt-Attribute of the image. Provided by Strapi. Pass it for good SEO.                                                                                            |
-| **className**          | string   |             | Custom className.                                                                                                                                                |
-| **style**              | string   |             | Custom styles for wrapper. `styled-components` template-literal.                                                                                                 |
-| **stylePlaceholder**   | string   |             | Custom styles for placeholder. `styled-components` template-literal                                                                                              |
-| **styleImg**           | string   |             | Custom styles for img-tag. `styled-components` template-literal                                                                                                  |
+| **alternativeText**    | string   |             | `alt`-Attribute of the image. Provided by `Strapi`. Pass it for good SEO.                                                                                        |
+| **className**          | string   |             | Custom className for the wrapping `div`-tag.                                                                                                                     |
+| **style**              | string   |             | Custom styles for **wrapper**. `styled-components` template-literal.                                                                                             |
+| **stylePlaceholder**   | string   |             | Custom styles for **placeholder-img**. `styled-components` template-literal                                                                                      |
+| **styleImg**           | string   |             | Custom styles for **img-tag**. `styled-components` template-literal                                                                                              |
 | **prefix**             | string   |             | Prefix all src and srcset.                                                                                                                                       |
-| **onLoad**             | function |             | Image-onLoad-callback.                                                                                                                                           |
-| **onError**            | function |             | Image-onError-callback.                                                                                                                                          |
+| **onLoad**             | function |             | Image-`onLoad`-callback.                                                                                                                                         |
+| **onError**            | function |             | Image-`onError`-callback.                                                                                                                                        |
 
 ---
 
 ## ImageProvider
 
-Optionally you can wrap your App in the components `ImageProvider`, which lets you determine repeating settings at a central spot. Have a look at this `_app.tsx` from a `nextJS`-project:
+Optionally you can wrap your App in the component `ImageProvider`, which lets you determine repeating settings at a central spot. Have a look at this `_app.tsx` from a `nextJS`-project:
 
 ```tsx
 import React from "react";
@@ -151,7 +157,7 @@ Additionally the `ImageProvider` detects `webp`-support once, which gives the `I
 
 ### `ImageProvider`-Props
 
-All props are **optional**. You can find them [here](/src/types.ts).
+All props are **optional**. You can find them [here at "ContextProps"](/src/types.ts).
 
 ---
 
@@ -291,4 +297,4 @@ Licensed under the MIT License, Copyright © 2020-present Andreas Faust. See
 
 ## Thanks
 
-I want to give special thanks to [Sarp](https://github.com/sarpisik) for the `Strapi`-groundwork and [Welly](https://github.com/wellyshen) for his library [react-cool-img](https://github.com/wellyshen/react-cool-img), from which I learned a lot.
+I want to give special thanks to [Sarp](https://github.com/sarpisik) for the `Strapi`-groundwork and [Welly](https://github.com/wellyshen) for his library [react-cool-img](https://github.com/wellyshen/react-cool-img), from which I learned and adapted a lot.

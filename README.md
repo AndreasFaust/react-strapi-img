@@ -12,6 +12,7 @@
 - Add Blured, animated base64-placeholder.
 - Use `WebP`-format if supported.
 - Add `noscript`-image for SEO.
+- Decode images before rendering for better performance.
 
 ### PeerDependencies
 
@@ -104,6 +105,7 @@ Except `url` all props are **optional**.
 | :--------------------- | :------- | :---------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **url**                | string   |             | Image-url. Fetch with Strapi.                                                                                                                                    |
 | **formats**            | object   |             | Strapi provides a formats-object for `srcset` and `base64`. Fetch it and insert it here.                                                                         |
+| **sizes**              | string   |             | sizes-Tag. Help browsers to make better decisions. https://css-tricks.com/a-guide-to-the-responsive-images-syntax-in-html/                                       |
 | **objectFit**          | string   | 'cover'     | CSS-property. Useful together with `proportionalHeight`                                                                                                          |
 | **objectPosition**     | string   | 'center'    | CSS-property. Useful together with `proportionalHeight`                                                                                                          |
 | **width**              | number   |             | Provided by Strapi. Pass it to preserve original image-proportions.                                                                                              |
@@ -117,6 +119,39 @@ Except `url` all props are **optional**.
 | **stylePlaceholder**   | string   |             | Custom styles for placeholder. `styled-components` template-literal                                                                                              |
 | **styleImg**           | string   |             | Custom styles for img-tag. `styled-components` template-literal                                                                                                  |
 | **prefix**             | string   |             | Prefix all src and srcset.                                                                                                                                       |
+| **onLoad**             | function |             | Image-onLoad-callback.                                                                                                                                           |
+| **onError**            | function |             | Image-onError-callback.                                                                                                                                          |
+
+---
+
+## ImageProvider
+
+Optionally you can wrap your App in the components `ImageProvider`, which lets you determine repeating settings at a central spot. Have a look at this `_app.tsx` from a `nextJS`-project:
+
+```tsx
+import React from "react";
+import { ImageProvider } from "react-strapi-img";
+
+function MyApp({ Component, pageProps, router }) {
+  return (
+    <ImageProvider
+      prefix={process.env.productionPath}
+      style={`border: 10px solid red;`}
+      onLoad={(event) => console.log(event.target)}
+    >
+      <Component {...pageProps} key={router.route} />
+    </ImageProvider>
+  );
+}
+
+export default MyApp;
+```
+
+Additionally the `ImageProvider` detects `webp`-support once, which gives the `Image`-Components a tiny performance boost.
+
+### `ImageProvider`-Props
+
+All props are **optional**. You can find them [here](/src/types.ts).
 
 ---
 
@@ -125,8 +160,9 @@ Except `url` all props are **optional**.
 All relevant [Types](/src/types.ts) are exported:
 
 1. ImageProps
-2. Formats
-3. ObjectFit
+2. ProviderProps
+3. Formats
+4. ObjectFit
 
 ```tsx
 import { Types } from "react-strapi-img";
@@ -155,7 +191,17 @@ Initially:
     alt='Placeholder for the image "testimg_1d61597ba3.jpg".'
     class="Placeholder__StyledPlaceholder-h5tses-0 grjLdz"
   />
+  <img
+    src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
+    alt="This is testimg_1d61597ba3.jpg"
+    class="StyledImage-yw93u6-0 bvBGFq no-js-testimg_1d61597ba3"
+  />
   <noscript>
+    <style>
+      .no-js-testimg_1d61597ba3 {
+        display: none !important;
+      }
+    </style>
     <img
       src="testimg_1d61597ba3.jpg"
       alt="This is testimg_1d61597ba3.jpg"
@@ -168,9 +214,36 @@ Initially:
 After image was loaded:
 
 ```html
-<div class="Wrapper__StyledImageWrapper-sc-1o399dd-0 bJzCYV imageWrapper">
-  <picture>
-    <source
+<div class="Wrapper__StyledImageWrapper-sc-1o399dd-0 cOGFGG imageWrapper">
+  <img
+    src="testimg_1d61597ba3.jpg"
+    alt="This is testimg_1d61597ba3.jpg"
+    class="StyledImage-yw93u6-0 bvBGFq no-js-testimg_1d61597ba3"
+    srcset="
+      /400_testimg_1d61597ba3.webp   400w,
+      /600_testimg_1d61597ba3.webp   600w,
+      /800_testimg_1d61597ba3.webp   800w,
+      /1000_testimg_1d61597ba3.webp 1000w,
+      /1200_testimg_1d61597ba3.webp 1200w,
+      /1400_testimg_1d61597ba3.webp 1400w,
+      /1600_testimg_1d61597ba3.webp 1600w,
+      /1800_testimg_1d61597ba3.webp 1800w,
+      /2000_testimg_1d61597ba3.webp 2000w,
+      /2200_testimg_1d61597ba3.webp 2200w,
+      /2400_testimg_1d61597ba3.webp 2400w,
+      /2600_testimg_1d61597ba3.webp 2600w,
+      /2800_testimg_1d61597ba3.webp 2800w,
+      /3000_testimg_1d61597ba3.webp 3000w
+    "
+  />
+  <noscript>
+    <style>
+      .no-js-testimg_1d61597ba3 {
+        display: none !important;
+      }
+    </style>
+    <img
+      src="testimg_1d61597ba3.jpg"
       srcset="
         /400_testimg_1d61597ba3.webp   400w,
         /600_testimg_1d61597ba3.webp   600w,
@@ -187,36 +260,6 @@ After image was loaded:
         /2800_testimg_1d61597ba3.webp 2800w,
         /3000_testimg_1d61597ba3.webp 3000w
       "
-      type="image/webp"
-    />
-    <source
-      srcset="
-        /400_testimg_1d61597ba3.jpg   400w,
-        /600_testimg_1d61597ba3.jpg   600w,
-        /800_testimg_1d61597ba3.jpg   800w,
-        /1000_testimg_1d61597ba3.jpg 1000w,
-        /1200_testimg_1d61597ba3.jpg 1200w,
-        /1400_testimg_1d61597ba3.jpg 1400w,
-        /1600_testimg_1d61597ba3.jpg 1600w,
-        /1800_testimg_1d61597ba3.jpg 1800w,
-        /2000_testimg_1d61597ba3.jpg 2000w,
-        /2200_testimg_1d61597ba3.jpg 2200w,
-        /2400_testimg_1d61597ba3.jpg 2400w,
-        /2600_testimg_1d61597ba3.jpg 2600w,
-        /2800_testimg_1d61597ba3.jpg 2800w,
-        /3000_testimg_1d61597ba3.jpg 3000w
-      "
-      type="image/jpeg"
-    />
-    <img
-      src="testimg_1d61597ba3.jpg"
-      alt="This is testimg_1d61597ba3.jpg"
-      class="StyledImage-yw93u6-0 bvBGFq"
-    />
-  </picture>
-  <noscript>
-    <img
-      src="testimg_1d61597ba3.jpg"
       alt="This is testimg_1d61597ba3.jpg"
       class="StyledImage-yw93u6-0 bvBGFq"
     />
@@ -231,7 +274,7 @@ After image was loaded:
 Every contribution is very much appreciated. In fact,
 your testing and feedback is the reason, I am going the extra mile of publishing
 my work open-source (and GitHub-Stars, of course!). So join me in making this
-software more reliable for everyone.
+software more reliable and performant for everyone.
 
 **If `react-strapi-img` is helpful for you,
 don't hesitate to star it on
@@ -245,3 +288,7 @@ Licensed under the MIT License, Copyright © 2020-present Andreas Faust. See
 [LICENSE](LICENSE) for more information.
 
 ---
+
+## Thanks
+
+I want to give special thanks to [Sarp](https://github.com/sarpisik) for the `Strapi`-groundwork and [Welly](https://github.com/wellyshen) for his library [react-cool-img](https://github.com/wellyshen/react-cool-img), from which I learned a lot.

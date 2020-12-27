@@ -1,3 +1,5 @@
+import { SyntheticEvent } from "react";
+
 export type ObjectFit =
   | "fill"
   | "cover"
@@ -28,9 +30,7 @@ export type Formats = {
   [breakpoint: number]: Format | Format[];
 };
 
-export interface ImageProps {
-  url: string;
-  formats?: Formats;
+export interface ContextProps {
   objectFit?: ObjectFit;
   objectPosition?: string;
   width?: number;
@@ -44,4 +44,17 @@ export interface ImageProps {
   prefix?: string;
   rootMargin?: string;
   threshold?: number;
+  sizes?: string;
+  onLoad?: (event: SyntheticEvent<HTMLImageElement, Event>) => void;
+  onError?: (event: SyntheticEvent<HTMLImageElement, Event>) => void;
+  webp?: boolean;
+}
+
+export interface ImageProps extends ContextProps {
+  url: string;
+  formats?: Formats;
+}
+
+export interface ProviderProps extends ContextProps {
+  children?: React.Node;
 }

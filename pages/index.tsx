@@ -26,8 +26,15 @@ const Startpage: NextPage = () => {
   return (
     <div className="wrapper">
       <p>Scroll down to see some examples.</p>
-      <div style={{ marginTop: "25vh" }}>
-        {image1 && <Image {...image1} prefix={process.env.productionPath} />}
+      <div style={{ marginTop: "25vh", gridColumn: "span 2" }}>
+        {image1 && (
+          <Image
+            {...image1}
+            style={`border: 10px solid blue;`}
+            sizes={"50vw"}
+            prefix={process.env.productionPath}
+          />
+        )}
       </div>
       <div style={{ marginTop: "25vh" }}>
         {image2 && <Image {...image2} prefix={process.env.productionPath} />}
@@ -41,7 +48,6 @@ const Startpage: NextPage = () => {
             // style={`border: 2px solid red;`}
             // styleImg={`border: 2px solid blue;`}
             // stylePlaceholder={`transition: 10s;`}
-            prefix={process.env.productionPath}
           />
         )}
       </div>

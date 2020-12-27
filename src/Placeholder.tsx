@@ -41,7 +41,7 @@ const StyledPlaceholder = styled.img<StyledProps>`
   ${(props) => props.stylePlaceholder}
 `;
 
-const ImageWrapper: React.FC<Props> = ({
+const Placeholder: React.FC<Props> = ({
   base64,
   url,
   objectFit,
@@ -68,4 +68,4 @@ const ImageWrapper: React.FC<Props> = ({
   );
 };
 
-export default React.memo(ImageWrapper);
+export default React.memo(Placeholder);

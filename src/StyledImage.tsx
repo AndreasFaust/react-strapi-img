@@ -1,13 +1,17 @@
+import { SyntheticEvent } from "react";
 import { ObjectFit } from "./types";
 import styled from "styled-components";
 
 interface Props {
   src: string;
   alt: string;
-  onLoad?: () => void;
+  className?: string;
+  sizes?: string;
   objectFit?: ObjectFit;
   objectPosition?: string;
   styleImg?: string;
+  onLoad?: (event: SyntheticEvent<HTMLImageElement, Event>) => void;
+  onError?: (event: SyntheticEvent<HTMLImageElement, Event>) => void;
 }
 
 const StyledImage = styled.img<Props>`

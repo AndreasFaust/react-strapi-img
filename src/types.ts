@@ -1,4 +1,4 @@
-import { SyntheticEvent } from "react";
+import { SyntheticEvent, ReactNode } from "react";
 
 export type ObjectFit =
   | "fill"
@@ -56,5 +56,5 @@ export interface ImageProps extends ContextProps {
 }
 
 export interface ProviderProps extends ContextProps {
-  children?: React.Node;
+  children?: ReactNode;
 }

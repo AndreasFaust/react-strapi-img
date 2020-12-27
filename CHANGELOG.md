@@ -1,3 +1,9 @@
+### 0.1.0 (2020-12-27)
+
+##### Documentation Changes
+
+*  improve readme (1d8376b7)
+
 #### 0.0.10 (2020-12-26)
 
 ##### Documentation Changes

@@ -58,6 +58,7 @@ In `react` fetch the image with `graphQL`:
 query {
   image {
     url
+    alternativeText
     width
     height
     formats
@@ -80,12 +81,13 @@ interface Props {
 }
 
 const MyApp: React.FC<Props> = ({ imageFromStrapi }) => {
-  const { url, width, height, formats } = imageFromStrapi;
+  const { url, alternativeText, width, height, formats } = imageFromStrapi;
   return (
     <Image
       // you could also spread all props like this: {...imageFromStrapi},
       // but for the purpose of demonstration I am adding them one by one
       url={url} // required
+      alternativeText={alternativeText} // optional
       width={width} // optional
       height={height} // optional
       formats={formats} // optional
@@ -277,10 +279,7 @@ After image was loaded:
 
 ## Contributing
 
-Every contribution is very much appreciated. In fact,
-your testing and feedback is the reason, I am going the extra mile of publishing
-my work open-source (and GitHub-Stars, of course!). So join me in making this
-software more reliable and performant for everyone.
+Every contribution is very much appreciated. You are invited to join me in making this software reliable and performant for everyone.
 
 **If `react-strapi-img` is helpful for you,
 don't hesitate to star it on
@@ -291,7 +290,7 @@ don't hesitate to star it on
 ## License
 
 Licensed under the MIT License, Copyright © 2020-present Andreas Faust. See
-[LICENSE](LICENSE) for more information.
+[LICENSE](LICENSE.md) for more information.
 
 ---
 

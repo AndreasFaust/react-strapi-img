@@ -20,14 +20,14 @@ import ImageProvider from "./ImageProvider";
 const ReactStrapiImg: React.FC<Types.ImageProps> = ({
   url,
   formats,
-  objectFit = "cover",
-  objectPosition = "center",
+  objectFit,
+  objectPosition,
   width,
   height,
   proportionalHeight,
-  placeholder = true,
-  rootMargin = "50px",
-  threshold = 0,
+  placeholder,
+  rootMargin,
+  threshold,
   alternativeText = "Alternative-Text",
   sizes,
   className = "",
@@ -51,8 +51,8 @@ const ReactStrapiImg: React.FC<Types.ImageProps> = ({
   const [isVisible] = useIntersectionObserver({
     elementRef: ref,
     freezeOnceVisible: true,
-    rootMargin,
-    threshold,
+    rootMargin: rootMargin || context.rootMargin || "50px",
+    threshold: threshold || context.threshold || 0,
   });
 
   const handleDecode = useCallback(() => {
@@ -87,12 +87,12 @@ const ReactStrapiImg: React.FC<Types.ImageProps> = ({
       height={height}
       proportionalHeight={proportionalHeight || context.proportionalHeight}
     >
-      {placeholder && formats && formats.base64 && (
+      {(placeholder || context.placeholder) && formats && formats.base64 && (
         <Placeholder
           url={url}
           base64={formats.base64.url}
-          objectFit={objectFit || context.objectFit}
-          objectPosition={objectPosition || context.objectPosition}
+          objectFit={objectFit || context.objectFit || "cover"}
+          objectPosition={objectPosition || context.objectPosition || "center"}
           stylePlaceholder={context.stylePlaceholder + stylePlaceholder}
           imageFinished={imageFinished}
         />

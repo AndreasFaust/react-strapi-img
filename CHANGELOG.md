@@ -1,3 +1,9 @@
+#### 0.2.2 (2021-02-01)
+
+##### Bug Fixes
+
+*  fix object-props default (5244ff80)
+
 #### 0.2.1 (2021-02-01)
 
 ##### Bug Fixes

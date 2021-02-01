@@ -119,6 +119,7 @@ Except `url` all props are **optional**.
 | **width**              | number   |             | Provided by Strapi. Pass it to preserve original image-proportions.                                                                                              |
 | **height**             | number   |             | Provided by Strapi. Pass it to preserve original image-proportions.                                                                                              |
 | **proportionalHeight** | number   |             | Provide for custom image-proportion. Crops image. Use along with `objectFit` and `objectPosition`.                                                               |
+| **placeholder**        | boolean  | `true`      | Show base64-Placeholder.                                                                                                                                         |
 | **rootMargin**         | string   | 50px        | Used by `Intersection Observer` to determine distance from viewport, when the image should be loaded                                                             |
 | **threshold**          | number   | 0           | Value between `0` and `1`. Used by `Intersection Observer` to indicate at what percentage of the target's visibility the observer's callback should be executed. |
 | **alternativeText**    | string   |             | `alt`-Attribute of the image. Provided by `Strapi`. Pass it for good SEO.                                                                                        |

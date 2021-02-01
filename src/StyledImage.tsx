@@ -5,6 +5,7 @@ import styled from "styled-components";
 interface Props {
   src: string;
   alt: string;
+  loaded: boolean;
   className?: string;
   sizes?: string;
   objectFit?: ObjectFit;
@@ -24,7 +25,9 @@ const StyledImage = styled.img<Props>`
   right: 0;
   width: 100%;
   height: 100%;
-  ${(props) => props.styleImg}
+  transition: opacity 0.3s;
+  opacity: ${(props) => (props.loaded ? 1 : 0)};
+  ${(props) => props.styleImg};
 `;
 
 export default StyledImage;

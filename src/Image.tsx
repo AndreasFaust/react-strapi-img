@@ -15,6 +15,7 @@ interface Props {
   objectPosition?: string;
   alternativeText?: string;
   styleImg?: string;
+  setImageFinished: React.Dispatch<React.SetStateAction<boolean>>;
   onLoad?: (event: SyntheticEvent<HTMLImageElement, Event>) => void;
   onError?: (event: SyntheticEvent<HTMLImageElement, Event>) => void;
   onDecode: () => void;
@@ -31,6 +32,7 @@ const Image: React.FC<Props> = ({
   className,
   styleImg,
   sizes,
+  setImageFinished,
   onDecode,
   onLoad,
   onError,
@@ -41,12 +43,14 @@ const Image: React.FC<Props> = ({
     "data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
   );
   const [sourceSet, setSourceSet] = React.useState<string | null>(null);
+  const [loaded, setLoaded] = React.useState<boolean>(false);
 
   const handleDecode = React.useCallback(() => {
     onDecode();
   }, []);
   const handleLoad = React.useCallback((event) => {
     onLoad(event);
+    setLoaded(true);
   }, []);
   const handleError = React.useCallback((event) => {
     onError(event);
@@ -69,6 +73,7 @@ const Image: React.FC<Props> = ({
 
   return (
     <StyledImage
+      onTransitionEnd={() => setImageFinished(true)}
       onLoad={handleLoad}
       onError={handleError}
       src={source}
@@ -79,6 +84,7 @@ const Image: React.FC<Props> = ({
       objectPosition={objectPosition}
       styleImg={styleImg}
       className={className}
+      loaded={loaded}
     />
   );
 };

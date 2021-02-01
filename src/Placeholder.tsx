@@ -8,7 +8,7 @@ interface Props {
   objectFit: ObjectFit;
   objectPosition: string;
   stylePlaceholder?: string;
-  imageLoaded: boolean;
+  imageFinished: boolean;
 }
 
 interface StyledProps {
@@ -17,8 +17,6 @@ interface StyledProps {
   objectFit: ObjectFit;
   objectPosition: string;
   stylePlaceholder?: string;
-  imageLoaded: boolean;
-  onTransitionEnd: () => void;
 }
 
 const StyledPlaceholder = styled.img<StyledProps>`
@@ -31,12 +29,10 @@ const StyledPlaceholder = styled.img<StyledProps>`
   right: 0;
   width: 100%;
   height: 100%;
-  transition: opacity 0.4s;
-  opacity: ${(props) => (props.imageLoaded ? 0 : 1)};
   filter: blur(10px);
   transform: scale(1.1);
   transform-origin: center;
-  z-index: 100;
+  z-index: 0;
   pointerevents: none;
   ${(props) => props.stylePlaceholder}
 `;
@@ -46,22 +42,16 @@ const Placeholder: React.FC<Props> = ({
   url,
   objectFit,
   objectPosition,
-  imageLoaded,
   stylePlaceholder,
+  imageFinished,
 }) => {
-  const [render, setRender] = React.useState(true);
-  function onTransitionEnd() {
-    setRender(false);
-  }
   return (
-    render && (
+    !imageFinished && (
       <StyledPlaceholder
         src={base64}
         alt={`Placeholder for the image "${url}".`}
-        onTransitionEnd={onTransitionEnd}
         objectFit={objectFit}
         objectPosition={objectPosition}
-        imageLoaded={imageLoaded}
         stylePlaceholder={stylePlaceholder}
       />
     )

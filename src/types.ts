@@ -36,6 +36,7 @@ export interface ContextProps {
   width?: number;
   height?: number;
   proportionalHeight?: number;
+  placeholder?: boolean;
   alternativeText?: string;
   className?: string;
   style?: string;

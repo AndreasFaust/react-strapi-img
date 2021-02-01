@@ -26,11 +26,19 @@ const Startpage: NextPage = () => {
   return (
     <div className="wrapper">
       <p>Scroll down to see some examples.</p>
-      <div style={{ marginTop: "25vh", gridColumn: "span 2" }}>
+      <div
+        style={{
+          marginTop: "25vh",
+          gridColumn: "span 2",
+        }}
+      >
         {image1 && (
           <Image
             {...image1}
-            style={`border: 10px solid blue;`}
+            style={`
+              border: 10px solid blue;
+              border-radius: 3rem;
+            `}
             sizes={"50vw"}
             prefix={process.env.productionPath}
           />

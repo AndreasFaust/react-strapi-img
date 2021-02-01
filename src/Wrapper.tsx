@@ -20,6 +20,7 @@ interface StyledProps {
 const StyledImageWrapper = styled.div<StyledProps>`
   position: relative;
   overflow: hidden;
+  z-index: 0;
 
   &&::after {
     content: "";

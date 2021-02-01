@@ -25,6 +25,7 @@ const ReactStrapiImg: React.FC<Types.ImageProps> = ({
   width,
   height,
   proportionalHeight,
+  placeholder = true,
   rootMargin = "50px",
   threshold = 0,
   alternativeText = "Alternative-Text",
@@ -54,13 +55,11 @@ const ReactStrapiImg: React.FC<Types.ImageProps> = ({
     threshold,
   });
 
-  const [imageLoaded, setImageLoaded] = useState(false);
   const handleDecode = useCallback(() => {
     isDecoded.current = true;
   }, []);
   const handleLoad = useCallback((event) => {
     if (isDecoded.current) {
-      setImageLoaded(true);
       if (onLoad) onLoad(event);
       else if (context.onLoad) context.onLoad(event);
     }
@@ -71,6 +70,7 @@ const ReactStrapiImg: React.FC<Types.ImageProps> = ({
   }, []);
 
   const [loadImage, setLoadImage] = useState(false);
+  const [imageFinished, setImageFinished] = useState(false);
 
   useEffect(() => {
     if (isVisible) {
@@ -87,17 +87,18 @@ const ReactStrapiImg: React.FC<Types.ImageProps> = ({
       height={height}
       proportionalHeight={proportionalHeight || context.proportionalHeight}
     >
-      {formats && formats.base64 && (
+      {placeholder && formats && formats.base64 && (
         <Placeholder
           url={url}
           base64={formats.base64.url}
           objectFit={objectFit || context.objectFit}
           objectPosition={objectPosition || context.objectPosition}
-          imageLoaded={imageLoaded}
           stylePlaceholder={context.stylePlaceholder + stylePlaceholder}
+          imageFinished={imageFinished}
         />
       )}
       <Image
+        setImageFinished={setImageFinished}
         onLoad={handleLoad}
         onError={handleError}
         onDecode={handleDecode}
@@ -116,6 +117,7 @@ const ReactStrapiImg: React.FC<Types.ImageProps> = ({
         <style>{`.no-js-${filename} { display: none !important; }`}</style>
         <StyledImage
           srcSet={srcSet && (srcSet.webp || srcSet.regular)}
+          loaded
           src={(prefix || context.prefix) + url}
           alt={alternativeText}
           sizes={sizes || context.sizes}

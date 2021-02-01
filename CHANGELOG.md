@@ -1,3 +1,9 @@
+#### 0.2.1 (2021-02-01)
+
+##### Bug Fixes
+
+*  fix provider (3cb8d8c4)
+
 ### 0.2.0 (2021-02-01)
 
 ##### New Features

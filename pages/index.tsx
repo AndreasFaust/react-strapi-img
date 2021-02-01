@@ -51,7 +51,7 @@ const Startpage: NextPage = () => {
         <p>{`This image has "proportionalHeight={100}", so its height is equal to its width.`}</p>
         {image1 && (
           <Image
-            proportionalHeight={100}
+            proportionalHeight={50}
             {...image1}
             // style={`border: 2px solid red;`}
             // styleImg={`border: 2px solid blue;`}

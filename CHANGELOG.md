@@ -1,3 +1,13 @@
+### 0.2.0 (2021-02-01)
+
+##### New Features
+
+*  make placeholder optional (ff4e801a)
+
+##### Bug Fixes
+
+*  add license (27c2a7cb)
+
 ### 0.1.0 (2020-12-27)
 
 ##### Documentation Changes

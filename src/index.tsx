@@ -25,7 +25,7 @@ const ReactStrapiImg: React.FC<Types.ImageProps> = ({
   width,
   height,
   proportionalHeight,
-  placeholder,
+  placeholder = true,
   rootMargin,
   threshold,
   alternativeText = "Alternative-Text",

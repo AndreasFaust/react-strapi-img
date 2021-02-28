@@ -33,7 +33,7 @@ const StyledPlaceholder = styled.img<StyledProps>`
   transform: scale(1.1);
   transform-origin: center;
   z-index: 0;
-  pointerevents: none;
+  pointer-events: none;
   ${(props) => props.stylePlaceholder}
 `;
 

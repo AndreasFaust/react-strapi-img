@@ -1,3 +1,9 @@
+#### 0.2.3 (2021-02-28)
+
+##### Bug Fixes
+
+*  placeholder-prop needs to be true (ddf8cc67)
+
 #### 0.2.2 (2021-02-01)
 
 ##### Bug Fixes
